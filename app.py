@@ -1,4 +1,6 @@
 import streamlit as st
+st.write("✅ app.py is loading...")
+
 from content_pipeline import pipeline
 
 st.set_page_config(page_title="AI Content Pipeline", layout="wide")
