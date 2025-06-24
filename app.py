@@ -2,20 +2,24 @@ import streamlit as st
 from content_pipeline import get_pipeline
 from langchain_openai import ChatOpenAI
 
-# Optional: helpful debug marker
+st.set_page_config(page_title="AI Content Pipeline", layout="wide")
 st.write("✅ app.py is loading...")
 
-# Initialize the language model with your secret key
-llm = ChatOpenAI(
-    model="gpt-4",
-    temperature=0.7,
-    openai_api_key=st.secrets["OPENAI_API_KEY"]
-)
+# Try to initialize the LLM with debug logging
+try:
+    st.write("🔄 Initializing ChatOpenAI...")
+    llm = ChatOpenAI(
+        model="gpt-4",
+        temperature=0.7,
+        openai_api_key=st.secrets["OPENAI_API_KEY"]
+    )
+    st.write("✅ ChatOpenAI loaded!")
+except Exception as e:
+    st.error(f"❌ ChatOpenAI failed to load: {e}")
+    raise
 
-# Load the full content generation pipeline
+# Load pipeline
 pipeline = get_pipeline(llm)
-
-st.set_page_config(page_title="AI Content Pipeline", layout="wide")
 
 st.title("🚀 AI-Powered Content Pipeline")
 st.write("Generate research, a blog post, summary, and social media content from a single topic.")
@@ -75,3 +79,4 @@ if st.button("Generate Content") and (topic or file_contents):
     display_section("✍️ Blog Post", outputs["blog"], "blog")
     display_section("📝 Summary", outputs["summary"], "summary")
     display_section("📣 Social Media Content", outputs["social"], "social")
+
