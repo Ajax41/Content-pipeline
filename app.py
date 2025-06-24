@@ -1,6 +1,5 @@
 import streamlit as st
 from content_pipeline import pipeline
-import os
 
 st.set_page_config(page_title="AI Content Pipeline", layout="wide")
 
@@ -62,4 +61,3 @@ if st.button("Generate Content") and (topic or file_contents):
     display_section("✍️ Blog Post", outputs["blog"], "blog")
     display_section("📝 Summary", outputs["summary"], "summary")
     display_section("📣 Social Media Content", outputs["social"], "social")
-
