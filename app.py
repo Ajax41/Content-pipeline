@@ -1,5 +1,5 @@
 import streamlit as st
-st.write("✅ app.py is loading...")
+st.write("✅ app.py is REALLY loading now...")
 
 from content_pipeline import pipeline
 
