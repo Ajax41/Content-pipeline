@@ -1,7 +1,19 @@
 import streamlit as st
-st.write("✅ app.py is REALLY loading now...")
+from content_pipeline import get_pipeline
+from langchain_openai import ChatOpenAI
 
-from content_pipeline import pipeline
+# Optional: helpful debug marker
+st.write("✅ app.py is loading...")
+
+# Initialize the language model with your secret key
+llm = ChatOpenAI(
+    model="gpt-4",
+    temperature=0.7,
+    openai_api_key=st.secrets["OPENAI_API_KEY"]
+)
+
+# Load the full content generation pipeline
+pipeline = get_pipeline(llm)
 
 st.set_page_config(page_title="AI Content Pipeline", layout="wide")
 
