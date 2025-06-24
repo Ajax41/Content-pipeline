@@ -1,11 +1,6 @@
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain, SequentialChain
 from langchain_openai import ChatOpenAI
-import os
-from dotenv import load_dotenv
-
-# Load API key
-load_dotenv()
 
 llm = ChatOpenAI(model="gpt-4", temperature=0.7)
 
@@ -99,40 +94,3 @@ pipeline = SequentialChain(
     output_variables=["research", "blog", "summary", "social"],
     verbose=True
 )
-
-# Run the pipeline
-import json
-
-if __name__ == "__main__":
-    topic = "The role of AI in content marketing"
-    outputs = pipeline.invoke({"topic": topic})
-
-    # Save full output to JSON
-    with open("pipeline_outputs.json", "w") as f:
-        json.dump(outputs, f, indent=2)
-
-    # Save individual outputs if they exist
-    if 'research' in outputs:
-        with open("outputs/research.txt", "w") as f:
-            f.write(outputs['research'] + "\n\n")
-
-    if 'blog' in outputs:
-        with open("outputs/blog.txt", "w") as f:
-            f.write(outputs['blog'] + "\n\n")
-
-    if 'summary' in outputs:
-        with open("outputs/summary.txt", "w") as f:
-            f.write(outputs['summary'] + "\n\n")
-
-    if 'social' in outputs:
-        with open("outputs/social.txt", "w") as f:
-            f.write(outputs['social'] + "\n\n")
-
-
-import json
-from datetime import datetime
-import os
-
-
-
-
